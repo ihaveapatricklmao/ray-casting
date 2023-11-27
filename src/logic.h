@@ -14,19 +14,32 @@
 
 namespace World {
 
-	struct points {
+	struct Points {
 		glm::vec2 point_pos;
 	};
 
-	class grid {
-		points pt_a;
-		points pt_b;
-		points pt_c;
-		points pt_d;
+	class Grid {
+		Points pt_a;
+		Points pt_b;
+		Points pt_c;
+		Points pt_d;
 	};
 
-	struct space {
-		std::vector<grid> _grids;
+	struct Space {
+
+		std::vector<Grid> _grids;
+
+		void assignGrids(Grid* grids) {
+
+			for (int i = 0; i < sizeof(grids) / sizeof(Grid) ; i++ ) {
+				_grids.push_back(grids[i]);
+			}
+
+		}
+
+		int evalSize() {
+			return _grids.size();
+		}
 	};
 }
 
