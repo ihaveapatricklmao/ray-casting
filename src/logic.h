@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <cmath>
 #include <vector>
 #include "include/glm/glm.hpp"
 #include "include/camera.h"
@@ -20,6 +21,14 @@ namespace World {
 	class Wall {
 		Points pt_a;
 		Points pt_b;
+
+		int wallDist;
+
+
+		int calculateWall() {
+			wallDist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) + 
+				std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
+		}
 	};
 
 	class Grid {
@@ -38,15 +47,18 @@ namespace World {
 
 			for (int i = 0; i < sizeof(grids) / sizeof(Grid); i++ ) {
 				_grids.push_back(grids[i]);
-				for (int x = 0; x < sizeof(walls) / sizeof(Wall); x++) {
-					_walls.push_back(walls[x]);
-				}
 			}
-
+			for (int x = 0; x < sizeof(walls) / sizeof(Wall); x++) {
+				_walls.push_back(walls[x]);
+			}
 		}
 
-		int evalSize() {
+		int evalSizeGrids() {
 			return _grids.size();
+		}
+
+		int evalSizeWalls() {
+			return _walls.size();
 		}
 	};
 }
