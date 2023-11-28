@@ -20,16 +20,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="logic.hpp">
+    <ClInclude Include="src\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="render.h">
+    <ClInclude Include="src\entities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\camera.h">
+    <ClInclude Include="src\logic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\entities.h">
+    <ClInclude Include="src\render.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

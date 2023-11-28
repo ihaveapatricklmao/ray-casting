@@ -2,21 +2,14 @@
 #ifndef RENDER_H
 #define RENDER_H
 
-#include "include/sdl/SDL.h"
-#include "logic.hpp"
+#include <sdl/SDL.h>
+#undef main
+#include "logic.h"
 
 struct Ray {
 	glm::vec2 origin;
 	glm::vec2 end;
-
-	void castRay() {
-
-	}
 };
 
-
-namespace Render {
-
-}
 
 #endif // !RENDER_H

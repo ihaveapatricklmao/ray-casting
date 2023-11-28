@@ -8,8 +8,8 @@
 #include <cmath>
 #include <vector>
 #include "include/glm/glm.hpp"
-#include "include/camera.h"
-#include "include/entities.h"
+#include "camera.h"
+#include "entities.h"
 
 
 namespace World {
