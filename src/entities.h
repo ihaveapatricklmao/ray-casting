@@ -17,21 +17,25 @@ namespace Entity {
 
 			void moveEntity(glm::vec2 vec_pos, float pwr) {
 
-				float delta_x = vec_pos.x - pos.x;
-				float delta_y = vec_pos.y - pos.y;
+				while (true) {
 
-				float dist = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
+					float delta_x = vec_pos.x - pos.x, delta_y = vec_pos.y - pos.y;
 
-				double normalized_delta_x = delta_x / dist;
-				double normalized_delta_y = delta_y / dist;
-				
-				normalized_delta_x *= pwr;
-				normalized_delta_y *= pwr;
+					float dist = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
 
-				pos.x += normalized_delta_x;
-				pos.y += normalized_delta_y;
+					double normalized_delta_x = delta_x / dist, normalized_delta_y = delta_y / dist;
 
-				std::cout << pos.x << " " << pos.y << "\n";
+					pos.x += normalized_delta_x;
+					pos.y += normalized_delta_y;
+
+					//std::cout << pos.x << " " << pos.y << "\n";
+					//std::cout << dist << "\n";
+
+					if (dist <= 0.1) {  // Adjust the threshold as needed
+						std::cout << "Entity reached the target position.\n";
+						break;
+					}
+				}
 			}
 	};
 }
