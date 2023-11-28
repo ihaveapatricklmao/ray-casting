@@ -19,23 +19,19 @@ namespace World {
 	};
 
 	class Wall {
-		Points pt_a;
-		Points pt_b;
-
-		int wallDist;
+		Points pt_a, pt_b;
 
 
-		int calculateWall() {
+		float wallDist;
+
+		float calculateWall() {
 			wallDist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) + 
-				std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
+					   std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
 		}
 	};
 
 	class Grid {
-		Points pt_a;
-		Points pt_b;
-		Points pt_c;
-		Points pt_d;
+		Points pt_a, pt_b, pt_c, pt_d;
 	};
 
 	struct Space {

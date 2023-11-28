@@ -132,7 +132,6 @@
   <ItemGroup>
     <ClInclude Include="src\include\camera.h" />
     <ClInclude Include="src\include\entities.h" />
-    <ClInclude Include="src\include\walls.h" />
     <ClInclude Include="src\logic.h" />
     <ClInclude Include="src\render.h" />
   </ItemGroup>

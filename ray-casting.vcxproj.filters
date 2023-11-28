@@ -29,9 +29,6 @@
     <ClInclude Include="src\include\entities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\walls.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\logic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
