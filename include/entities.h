@@ -1,6 +1,6 @@
 #pragma once
 #ifndef ENTITIES_H
-#define WALLS_H
+#define ENTITIES_H
 
 #include "glm/glm.hpp"
 

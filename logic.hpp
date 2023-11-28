@@ -1,6 +1,6 @@
 #pragma once
-#ifndef LOGIC_H
-#define LOGIC_H
+#ifndef LOGIC_HPP
+#define LOGIC_HPP
 
 
 #include <iostream>
@@ -25,8 +25,8 @@ namespace World {
 		float wallDist;
 
 		float calculateWall() {
-			wallDist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) + 
-					   std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
+			wallDist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) +
+				std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
 		}
 	};
 
@@ -41,7 +41,7 @@ namespace World {
 
 		void assignWorld(Grid* grids, Wall* walls) {
 
-			for (int i = 0; i < sizeof(grids) / sizeof(Grid); i++ ) {
+			for (int i = 0; i < sizeof(grids) / sizeof(Grid); i++) {
 				_grids.push_back(grids[i]);
 			}
 			for (int x = 0; x < sizeof(walls) / sizeof(Wall); x++) {

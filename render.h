@@ -3,8 +3,7 @@
 #define RENDER_H
 
 #include "include/sdl/SDL.h"
-#include "include/glm/glm.hpp"
-#include "logic.h"
+#include "logic.hpp"
 
 struct Ray {
 	glm::vec2 origin;
