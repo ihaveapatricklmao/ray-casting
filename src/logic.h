@@ -9,13 +9,17 @@
 #include "include/glm/glm.hpp"
 #include "include/camera.h"
 #include "include/entities.h"
-#include "include/walls.h"
 
 
 namespace World {
 
 	struct Points {
 		glm::vec2 point_pos;
+	};
+
+	class Wall {
+		Points pt_a;
+		Points pt_b;
 	};
 
 	class Grid {
@@ -28,11 +32,15 @@ namespace World {
 	struct Space {
 
 		std::vector<Grid> _grids;
+		std::vector<Wall> _walls;
 
-		void assignGrids(Grid* grids) {
+		void assignWorld(Grid* grids, Wall* walls) {
 
-			for (int i = 0; i < sizeof(grids) / sizeof(Grid) ; i++ ) {
+			for (int i = 0; i < sizeof(grids) / sizeof(Grid); i++ ) {
 				_grids.push_back(grids[i]);
+				for (int x = 0; x < sizeof(walls) / sizeof(Wall); x++) {
+					_walls.push_back(walls[x]);
+				}
 			}
 
 		}
