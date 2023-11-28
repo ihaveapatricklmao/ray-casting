@@ -15,37 +15,23 @@ namespace Entity {
 			enum type {STATIC, DYNAMIC};
 
 
-			void moveEntity(glm::vec2 vec_pos, double iterate) {
-				float interp_x = 0.0, interp_y = 0.0;
+			void moveEntity(glm::vec2 vec_pos, float pwr) {
 
-				float delta_x, delta_y;
+				float delta_x = vec_pos.x - pos.x;
+				float delta_y = vec_pos.y - pos.y;
 
-				delta_x = vec_pos.x - pos.x;
-				delta_y = vec_pos.y - pos.y;
+				float dist = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
 
-				float dist = (std::pow(delta_x, 2) + std::pow(delta_y, 2)) * 0.5;
+				double normalized_delta_x = delta_x / dist;
+				double normalized_delta_y = delta_y / dist;
+				
+				normalized_delta_x *= pwr;
+				normalized_delta_y *= pwr;
 
-				double normalized_x = delta_x / dist;
-				double normalized_y = delta_y / dist;
+				pos.x += normalized_delta_x;
+				pos.y += normalized_delta_y;
 
-				while (interp_x <= delta_x || interp_x >= delta_x && interp_y <= delta_y || interp_y <= delta_y ) {
-
-					std::cout << pos.x << " " << pos.y << "\n ";
-					if (interp_x <= delta_x) {
-						pos.x += normalized_x;
-						interp_x += iterate;
-					}
-					else {
-						continue;
-					}
-					if (interp_y <= delta_y) {
-						pos.y += normalized_y;
-						interp_y += iterate;
-					}
-					else {
-						continue;
-					}
-				}
+				std::cout << pos.x << " " << pos.y << "\n";
 			}
 	};
 }
