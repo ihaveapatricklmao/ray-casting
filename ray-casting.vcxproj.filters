@@ -32,5 +32,11 @@
     <ClInclude Include="src\render.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

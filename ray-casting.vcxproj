@@ -22,10 +22,12 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\entities.h" />
     <ClInclude Include="src\logic.h" />
     <ClInclude Include="src\render.hpp" />
+    <ClInclude Include="src\texture.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
