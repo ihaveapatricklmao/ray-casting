@@ -28,8 +28,8 @@ namespace Entity {
 					pos.x += normalized_delta_x;
 					pos.y += normalized_delta_y;
 
-					//std::cout << "Position: " << pos.x << " " << pos.y << "\n";
-					//std::cout << "Dist: " << dist << "\n";
+					std::cout << "Position: " << pos.x << " " << pos.y << "\n";
+					std::cout << "Dist: " << dist << "\n";
 
 					if (dist <= 0.8) {  // threshold
 						std::cout << "distance reached!";

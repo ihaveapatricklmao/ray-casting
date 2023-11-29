@@ -11,6 +11,7 @@
 #include "camera.h"
 #include "entities.h"
 
+using namespace Entity;
 
 namespace World {
 
@@ -57,18 +58,24 @@ namespace World {
 		Grid() = default;
 	};
 
+	 
 	struct Space {
 
 		std::vector<Grid> _grids;
 		std::vector<Wall> _walls;
+		std::vector<EntityBase> _entities;
 
-		void assignWorld(Grid* grids, Wall* walls) {
+
+		void assignWorld(Grid* grids, Wall* walls, EntityBase* entities) {
 
 			for (int i = 0; i < sizeof(grids) / sizeof(Grid); i++) {
 				_grids.push_back(grids[i]);
 			}
 			for (int x = 0; x < sizeof(walls) / sizeof(Wall); x++) {
 				_walls.push_back(walls[x]);
+			}
+			for (int z = 0; z < sizeof(entities) / sizeof(EntityBase); z++) {
+				_entities.push_back(entities[z]);
 			}
 		}
 
@@ -79,6 +86,12 @@ namespace World {
 		int evalSizeWalls() {
 			return _walls.size();
 		}
+
+		int evalEntitySize() {
+			return _entities.size();
+		}
+
+		Space() = default;
 	};
 }
 
