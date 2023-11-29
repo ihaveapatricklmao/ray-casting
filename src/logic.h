@@ -16,6 +16,13 @@ namespace World {
 
 	struct Points {
 		glm::vec2 point_pos;
+
+		Points(float vec_x, float vec_y) {
+			point_pos.x = vec_x;
+			point_pos.y = vec_y;
+		}
+
+		Points() = default;
 	};
 
 	class Wall {
@@ -28,10 +35,26 @@ namespace World {
 			wallDist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) +
 				std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
 		}
+
+		Wall(Points a, Points b) {
+			pt_a = a;
+			pt_b = b;
+		}
+
+		Wall() = default;
 	};
 
 	class Grid {
 		Points pt_a, pt_b, pt_c, pt_d;
+
+		Grid(Points a, Points b, Points c, Points d) {
+			pt_a = a;
+			pt_b = b;
+			pt_c = c;
+			pt_d = d;
+		}
+
+		Grid() = default;
 	};
 
 	struct Space {
