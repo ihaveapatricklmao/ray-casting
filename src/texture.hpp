@@ -8,12 +8,16 @@
 #include <iostream>
 #include <stdio.h>
 
+
 namespace Tex {
 
 	struct Textures {
-
+		int tex_id;
+		static int next_tex_id;
 		int width, height, channels;
 		unsigned char* img;
+
+		Textures() : tex_id(next_tex_id++) {};
 
 		void loadImg(const char* img_path) {
 
@@ -27,12 +31,18 @@ namespace Tex {
 			}
 			// image failed to load
 			else {
-				std::cout << "image failed to load: " << img_path;
+				std::cout << "image failed to load: " << img_path << "\n";
 			}
 			stbi_image_free(img_data);
 		}
 
+		int getTexId() {
+			return tex_id;
+		}
+
 	};
+
+	int Textures::next_tex_id = 1;
 }
 
 #endif // !TEXTURE_HPP

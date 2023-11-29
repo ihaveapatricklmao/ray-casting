@@ -10,8 +10,11 @@
 #include "include/glm/glm.hpp"
 #include "camera.h"
 #include "entities.h"
+#include "texture.hpp"
+
 
 using namespace Entity;
+using namespace Tex;
 
 namespace World {
 
@@ -31,8 +34,10 @@ namespace World {
 		public:
 			Points pt_a, pt_b;
 			enum pts {POINT_A, POINT_B};
-			
+			Textures texture;
+
 			float wall_dist;
+
 
 			float calculateWall() {
 			wall_dist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) +
