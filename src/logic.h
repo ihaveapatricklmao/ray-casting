@@ -34,7 +34,7 @@ namespace World {
 
 		float calculateWall() {
 			wallDist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) +
-				std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
+			std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
 		}
 
 		Wall(Points a, Points b) {
@@ -45,32 +45,17 @@ namespace World {
 		Wall() = default;
 	};
 
-	class Grid {
-		Points pt_a, pt_b, pt_c, pt_d;
-
-		Grid(Points a, Points b, Points c, Points d) {
-			pt_a = a;
-			pt_b = b;
-			pt_c = c;
-			pt_d = d;
-		}
-
-		Grid() = default;
-	};
-
 	 
 	struct Space {
 
-		std::vector<Grid> _grids;
 		std::vector<Wall> _walls;
 		std::vector<EntityBase> _entities;
+		glm::vec3 ceiling_color;
+		glm::vec3 floor_color;
 
 
-		void assignWorld(Grid* grids, Wall* walls, EntityBase* entities) {
+		void assignWorld(Wall* walls, EntityBase* entities) {
 
-			for (int i = 0; i < sizeof(grids) / sizeof(Grid); i++) {
-				_grids.push_back(grids[i]);
-			}
 			for (int x = 0; x < sizeof(walls) / sizeof(Wall); x++) {
 				_walls.push_back(walls[x]);
 			}
@@ -79,9 +64,6 @@ namespace World {
 			}
 		}
 
-		int evalSizeGrids() {
-			return _grids.size();
-		}
 
 		int evalSizeWalls() {
 			return _walls.size();
@@ -89,6 +71,11 @@ namespace World {
 
 		int evalEntitySize() {
 			return _entities.size();
+		}
+
+		Space(glm::vec3 color_floor, glm::vec3 color_ceil) {
+			ceiling_color = color_ceil;
+			floor_color = color_floor;
 		}
 
 		Space() = default;
