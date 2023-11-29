@@ -27,69 +27,71 @@ namespace World {
 	};
 
 	class Wall {
-		Points pt_a, pt_b;
-		enum pts {POINT_A, POINT_B};
 
-		float wallDist;
+		public:
+			Points pt_a, pt_b;
+			enum pts {POINT_A, POINT_B};
+			
+			float wall_dist;
 
-		float calculateWall() {
-			wallDist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) +
+			float calculateWall() {
+			wall_dist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) +
 			std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
-		}
+			}
 
-		void wallMove(Points to_point, pts pt, bool instant, float pwr) {
+			void wallMove(Points to_point, pts pt, bool instant, float pwr) {
 
-			if (instant) {
-				switch (pt) {
-					case POINT_A: pt_a.point_pos = to_point.point_pos;
-					case POINT_B: pt_b.point_pos = to_point.point_pos;
+				if (instant) {
+					switch (pt) {
+						case POINT_A: pt_a.point_pos = to_point.point_pos;
+						case POINT_B: pt_b.point_pos = to_point.point_pos;
+					}
+				}
+				else {
+					switch (pt) {
+						case POINT_A: 
+							while (true) {
+
+								float delta_x = to_point.point_pos.x - pt_a.point_pos.x, delta_y = to_point.point_pos.y - pt_a.point_pos.y;
+
+								float door_dist = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
+
+								double normalized_delta_x = delta_x / door_dist, normalized_delta_y = delta_y / door_dist;
+
+								pt_a.point_pos.x += (normalized_delta_x) * pwr;
+								pt_a.point_pos.y += (normalized_delta_y) * pwr;
+
+								std::cout << "Position: " << pt_a.point_pos.x << " " << pt_a.point_pos.y << "\n";
+								std::cout << "Door Dist: " << door_dist << "\n";
+
+								if (door_dist <= 0.8) {  // threshold
+									std::cout << "distance reached!";
+									break;
+								}
+							}
+						case POINT_B: 
+							while (true) {
+
+								float delta_x = to_point.point_pos.x - pt_b.point_pos.x, delta_y = to_point.point_pos.y - pt_b.point_pos.y;
+
+								float door_dist = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
+
+								double normalized_delta_x = delta_x / door_dist, normalized_delta_y = delta_y / door_dist;
+
+								pt_b.point_pos.x += (normalized_delta_x) * pwr;
+								pt_b.point_pos.y += (normalized_delta_y) * pwr;
+
+								std::cout << "Position: " << pt_b.point_pos.x << " , " << pt_b.point_pos.y << "\n";
+								std::cout << "Door Dist: " << door_dist << "\n";
+
+								if (door_dist <= 0.8) {  // threshold
+									std::cout << "distance reached!";
+									break;
+								}
+							}
+					}
 				}
 			}
-			else {
-				switch (pt) {
-					case POINT_A: 
-						while (true) {
-
-							float delta_x = to_point.point_pos.x - pt_a.point_pos.x, delta_y = to_point.point_pos.y - pt_a.point_pos.y;
-
-							float door_dist = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
-
-							double normalized_delta_x = delta_x / door_dist, normalized_delta_y = delta_y / door_dist;
-
-							pt_a.point_pos.x += normalized_delta_x;
-							pt_a.point_pos.y += normalized_delta_y;
-
-							std::cout << "Position: " << pt_a.point_pos.x << " " << pt_a.point_pos.y << "\n";
-							std::cout << "Door Dist: " << door_dist << "\n";
-
-							if (door_dist <= 0.8) {  // threshold
-								std::cout << "distance reached!";
-								break;
-							}
-						}
-					case POINT_B: 
-						while (true) {
-
-							float delta_x = to_point.point_pos.x - pt_b.point_pos.x, delta_y = to_point.point_pos.y - pt_b.point_pos.y;
-
-							float door_dist = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
-
-							double normalized_delta_x = delta_x / door_dist, normalized_delta_y = delta_y / door_dist;
-
-							pt_b.point_pos.x += normalized_delta_x;
-							pt_b.point_pos.y += normalized_delta_y;
-
-							std::cout << "Position: " << pt_b.point_pos.x << " , " << pt_b.point_pos.y << "\n";
-							std::cout << "Door Dist: " << door_dist << "\n";
-
-							if (door_dist <= 0.8) {  // threshold
-								std::cout << "distance reached!";
-								break;
-							}
-						}
-				}
-			}
-		}
 
 		Wall(Points a, Points b) {
 			pt_a = a;
