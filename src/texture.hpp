@@ -1,9 +1,38 @@
-#define STB_IMAGE_IMPLEMENTATION
 #pragma once
+#define STB_IMAGE_IMPLEMENTATION
 #ifndef TEXTURE_HPP
 #define TEXTURE_HPP
 
 
 #include "stb_image.h"
+#include <iostream>
+#include <stdio.h>
+
+namespace Tex {
+
+	struct Textures {
+
+		int width, height, channels;
+		unsigned char* img;
+
+		void loadImg(const char* img_path) {
+
+			unsigned char* img_data = stbi_load(img_path, &width, &height, &channels, 0);
+
+			// check if image has loaded and if it has, set img to the img data
+			if (img_data) {
+				std::cout << "loaded image: " << img_path << "\n";
+
+				img = img_data;
+			}
+			// image failed to load
+			else {
+				std::cout << "image failed to load: " << img_path;
+			}
+			stbi_image_free(img_data);
+		}
+
+	};
+}
 
 #endif // !TEXTURE_HPP
