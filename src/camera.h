@@ -7,7 +7,7 @@
 
 
 class Camera : public Entity::EntityBase {
-
+	
 };
 
 #endif // !CAMERA_H

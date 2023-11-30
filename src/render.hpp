@@ -7,10 +7,21 @@
 #undef main
 #include "logic.h"
 
-struct Ray {
-	glm::vec2 origin;
-	glm::vec2 end;
-};
+
+using namespace glm;
+
+namespace RenderingTools {
+
+	struct Pixel {
+		vec2 pos;
+		vec3 color;
+	};
+
+	struct Ray {
+		vec2 origin;
+		vec2 end;
+	};
+}
 
 
 #endif // !RENDER_H

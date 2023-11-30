@@ -15,11 +15,12 @@
 
 using namespace Entity;
 using namespace Tex;
+using namespace glm;
 
 namespace World {
 
 	struct Points {
-		glm::vec2 point_pos;
+		vec2 point_pos;
 
 		Points(float vec_x, float vec_y) {
 			point_pos.x = vec_x;
@@ -38,11 +39,6 @@ namespace World {
 
 			float wall_dist;
 
-
-			float calculateWall() {
-			wall_dist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) +
-			std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
-			}
 
 			void wallMove(Points to_point, pts pt, bool instant, float pwr) {
 
@@ -101,6 +97,8 @@ namespace World {
 		Wall(Points a, Points b) {
 			pt_a = a;
 			pt_b = b;
+			wall_dist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) +
+				std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
 		}
 
 		Wall() = default;
@@ -111,8 +109,8 @@ namespace World {
 
 		std::vector<Wall> _walls;
 		std::vector<EntityBase> _entities;
-		glm::vec3 ceiling_color;
-		glm::vec3 floor_color;
+		vec3 ceiling_color;
+		vec3 floor_color;
 
 
 		void assignWorld(Wall* walls, EntityBase* entities) {
@@ -134,7 +132,7 @@ namespace World {
 			return _entities.size();
 		}
 
-		Space(glm::vec3 color_floor, glm::vec3 color_ceil) {
+		Space(vec3 color_floor, vec3 color_ceil) {
 			ceiling_color = color_ceil;
 			floor_color = color_floor;
 		}

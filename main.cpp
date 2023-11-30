@@ -1,10 +1,14 @@
 #include "src/render.hpp"
 
 int main() {
-	Entity::EntityBase new_guy;
 
-	new_guy.pos = { 1.0, 3.0 };
+	World::Points new_point_a(1.0, 2.0);
+	World::Points new_point_b(4.0, 2.0);
+	World::Points to_pt(2.5, 2.0);
+	World::Wall new_wall(new_point_a, new_point_b);
 
-	new_guy.moveEntity({ 30.2, -10.3 }, 1.30);
+	new_wall.wallMove(to_pt, World::Wall::POINT_B, false, 0.50);
+
+
 	return -1;
 }

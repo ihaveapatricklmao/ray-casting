@@ -7,16 +7,18 @@
 #include <cmath>
 
 
+using namespace glm;
+
 namespace Entity {
 
 	class EntityBase {
 		
 		public:
-			glm::vec2 pos;
+			vec2 pos;
 			enum type {STATIC, DYNAMIC};
 
 
-			void moveEntity(glm::vec2 vec_pos, float pwr) {
+			void moveEntity(vec2 vec_pos, float pwr) {
 
 				while (true) {
 
