@@ -117,12 +117,14 @@ namespace World {
 		vec3 floor_color;
 
 
-		void assignWorld(Wall* walls, EntityBase* entities) {
+		void assignWorld(std::vector<Wall> walls, std::vector<EntityBase> entities) {
 
-			for (int x = 0; x < sizeof(walls) / sizeof(Wall); x++) {
+			for (int x = 0; x < walls.size(); x++) {
+				std::cout << "iterate walls\n";
 				_walls.push_back(walls[x]);
 			}
-			for (int z = 0; z < sizeof(entities) / sizeof(EntityBase); z++) {
+			for (int z = 0; z < entities.size(); z++) {
+				std::cout << "iterate entities\n";
 				_entities.push_back(entities[z]);
 			}
 		}
