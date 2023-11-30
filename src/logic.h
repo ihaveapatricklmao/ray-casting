@@ -44,8 +44,12 @@ namespace World {
 
 				if (instant) {
 					switch (pt) {
-						case POINT_A: pt_a.point_pos = to_point.point_pos;
-						case POINT_B: pt_b.point_pos = to_point.point_pos;
+						case POINT_A: 
+							pt_a.point_pos = to_point.point_pos;
+							std::cout << pt_a.point_pos.x << " " << pt_a.point_pos.y << "\n";
+						case POINT_B: 
+							pt_b.point_pos = to_point.point_pos;
+							std::cout << pt_b.point_pos.x << " " << pt_b.point_pos.y << "\n";
 					}
 				}
 				else {
