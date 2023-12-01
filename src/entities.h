@@ -9,6 +9,7 @@
 
 using namespace glm;
 
+
 namespace Entity {
 
 	class EntityBase {

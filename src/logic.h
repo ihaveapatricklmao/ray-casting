@@ -17,6 +17,7 @@ using namespace Entity;
 using namespace Tex;
 using namespace glm;
 
+
 namespace World {
 
 	struct Points {
@@ -46,10 +47,10 @@ namespace World {
 					switch (pt) {
 						case POINT_A: 
 							pt_a.point_pos = to_point.point_pos;
-							std::cout << pt_a.point_pos.x << " " << pt_a.point_pos.y << "\n";
+							std::cout << pt_a.point_pos.x << " , " << pt_a.point_pos.y << "\n";
 						case POINT_B: 
 							pt_b.point_pos = to_point.point_pos;
-							std::cout << pt_b.point_pos.x << " " << pt_b.point_pos.y << "\n";
+							std::cout << pt_b.point_pos.x << " , " << pt_b.point_pos.y << "\n";
 					}
 				}
 				else {
@@ -66,7 +67,7 @@ namespace World {
 								pt_a.point_pos.x += (normalized_delta_x) * pwr;
 								pt_a.point_pos.y += (normalized_delta_y) * pwr;
 
-								std::cout << "Position: " << pt_a.point_pos.x << " " << pt_a.point_pos.y << "\n";
+								std::cout << "Position: " << pt_a.point_pos.x << " , " << pt_a.point_pos.y << "\n";
 								std::cout << "Door Dist: " << door_dist << "\n";
 
 								if (door_dist <= 0.8) {  // threshold
@@ -102,7 +103,7 @@ namespace World {
 			pt_a = a;
 			pt_b = b;
 			wall_dist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) +
-				std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
+						std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
 		}
 
 		Wall() = default;
