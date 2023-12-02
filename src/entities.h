@@ -24,7 +24,6 @@ namespace Entity {
 				while (true) {
 
 					float delta_x = vec_pos.x - pos.x, delta_y = vec_pos.y - pos.y;
-
 					float dist = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
 
 					double normalized_delta_x = delta_x / dist, normalized_delta_y = delta_y / dist;

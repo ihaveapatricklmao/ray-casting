@@ -4,11 +4,11 @@
 using namespace World;
 using namespace Entity;
 using namespace RenderingTools;
+using namespace Render;
 
 
 int main() {
-
-	createWindow(800, 600);
+	
 
 	return -1;
 }
