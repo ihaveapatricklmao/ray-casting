@@ -15,7 +15,8 @@ namespace RenderingTools {
 
 	struct Pixel {
 		vec2 pos;
-		vec3 color;
+		vec4 rgba;
+		unsigned int width;
 	};
 
 	struct Ray {
