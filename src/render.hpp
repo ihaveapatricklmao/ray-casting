@@ -30,7 +30,9 @@ namespace Render {
 	struct Renderer {
 		int w;
 		int h;
+
 		SDL_Window* window;
+
 
 		int initSdl() {
 			if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
@@ -47,7 +49,7 @@ namespace Render {
 			int is_sdl_init = initSdl();
 
 			if (is_sdl_init == 0) {
-
+				SDL_Surface* surface = SDL_GetWindowSurface(_window);
 				while (_window) {
 					SDL_Renderer* render = SDL_CreateRenderer(_window, -1, 0);
 				}
