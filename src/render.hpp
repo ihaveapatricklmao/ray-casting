@@ -46,18 +46,35 @@ namespace Render {
 			}
 		}
 
-		void createWindow(SDL_Window* _window) {
+		void createWindow() {
 			int is_sdl_init = initSdl();
 
 			if (is_sdl_init == 0) {
-				SDL_Surface* surface = SDL_GetWindowSurface(_window);
-				while (_window) {
-					SDL_Renderer* render = SDL_CreateRenderer(_window, -1, 0);
+				window = SDL_CreateWindow("TEST", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_RESIZABLE);
+				SDL_Surface* surface = SDL_GetWindowSurface(window);
+
+				while (window) {
+					unsigned int* pixel = (unsigned int*)surface->pixels;
+					SDL_Renderer* render = SDL_CreateRenderer(window, -1, 0);
+
+					for (int y = 0; y < h; ++y)
+					{
+						for (int x = 0; x < w; ++x)
+						{
+							pixel[x + y * w] =
+								SDL_MapRGBA(surface->format, 200, 100, 250, 255);
+						}
+					}
+
+
+					SDL_UpdateWindowSurface(window);
 				}
 			}
 		}
 
-		Renderer(SDL_Window* _win) {
+		Renderer(SDL_Window* _win, int _w, int _h) {
+			w = _w;
+			h = _h;
 			window = _win;
 		}
 	};
