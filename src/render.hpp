@@ -19,9 +19,36 @@ namespace RenderingTools {
 		unsigned int width;
 	};
 
-	struct Ray {
-		vec2 origin;
-		vec2 end;
+	struct Cast {
+		std::vector<vec4> rgbaVals;
+
+
+		void assignRgba(SDL_Surface* _surface) {
+
+		}
+
+		void scanRow(SDL_Surface* _surface) {
+			int w = _surface->w;
+			int h = _surface->h;
+
+			unsigned int* pixels = (unsigned int*)_surface->pixels;
+			unsigned int* temp_pixels = pixels;
+
+			if (temp_pixels != pixels) {
+				for (int y = 0; y < h; y++)
+				{
+					for (int x = 0; x < w; x++)
+					{
+						if (temp_pixels[x + y * w] != pixels[x + y * w]) {
+							temp_pixels[x + y * w] = pixels[x + y * w];
+						}
+						else {
+							continue;
+						}
+					}
+				}
+			}
+		}
 	};
 
 }
@@ -51,20 +78,23 @@ namespace Render {
 
 			if (is_sdl_init == 0) {
 				window = SDL_CreateWindow("TEST", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_RESIZABLE);
+				SDL_Event window_events;
+				window_events.type = SDL_WINDOWEVENT;
 				SDL_Surface* surface = SDL_GetWindowSurface(window);
 
 				while (window) {
-					unsigned int* pixel = (unsigned int*)surface->pixels;
+
 					SDL_Renderer* render = SDL_CreateRenderer(window, -1, 0);
 
-					for (int y = 0; y < h; ++y)
-					{
-						for (int x = 0; x < w; ++x)
-						{
-							pixel[x + y * w] =
-								SDL_MapRGBA(surface->format, 200, 100, 250, 255);
+					if (SDL_PollEvent(&window_events)) {
+						switch (window_events.type) {
+							case SDL_WINDOWEVENT_RESIZED:
+								window_events.window.data1;
+								window_events.window.data2;
 						}
 					}
+					SDL_RenderClear(render);
+					SDL_RenderPresent(render);
 
 
 					SDL_UpdateWindowSurface(window);
