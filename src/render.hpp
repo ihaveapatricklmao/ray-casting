@@ -20,34 +20,35 @@ namespace RenderingTools {
 	};
 
 	struct Cast {
-		std::vector<vec4> rgbaVals;
+		std::vector<Pixel> _pixels;
+		SDL_Surface* _surface;
 
 
-		void assignRgba(SDL_Surface* _surface) {
+		void assignRgba() {
+			_pixels.clear();
 
-		}
-
-		void scanRow(SDL_Surface* _surface) {
 			int w = _surface->w;
 			int h = _surface->h;
 
-			unsigned int* pixels = (unsigned int*)_surface->pixels;
-			unsigned int* temp_pixels = pixels;
+			Pixel pix;
+			Uint32* pixels = (Uint32*)_surface->pixels;
 
-			if (temp_pixels != pixels) {
-				for (int y = 0; y < h; y++)
+			for (int y = 0; y < h; y++)
+			{
+				for (int x = 0; x < w; x++)
 				{
-					for (int x = 0; x < w; x++)
-					{
-						if (temp_pixels[x + y * w] != pixels[x + y * w]) {
-							temp_pixels[x + y * w] = pixels[x + y * w];
-						}
-						else {
-							continue;
-						}
-					}
+					Uint8 r, g, b, a;
+					pix.pos = { x, y };
+					SDL_GetRGBA(pixels[x + y * w], _surface->format, &r, &g, &b, &a);
+					pix.rgba = { r, g, b, a };
+					_pixels.emplace_back(pix);
+					std::cout << pix.rgba[0] << " , " << pix.rgba[1] << " , " << pix.rgba[2] << " , " << pix.rgba[3] << "\n";
 				}
 			}
+		}
+
+		void scanRow() {
+
 		}
 	};
 
