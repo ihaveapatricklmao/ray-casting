@@ -11,7 +11,7 @@
 using namespace glm;
 
 
-namespace RenderingTools {
+namespace Render {
 
 	struct Pixel {
 		vec2 pos;
@@ -19,7 +19,7 @@ namespace RenderingTools {
 		unsigned int width;
 	};
 
-	struct Cast {
+	struct Caster {
 		std::vector<Pixel> _pixels;
 		SDL_Surface* _surface;
 
@@ -52,10 +52,6 @@ namespace RenderingTools {
 		}
 	};
 
-}
-
-namespace Render {
-
 	struct Renderer {
 		int w;
 		int h;
@@ -78,14 +74,18 @@ namespace Render {
 			int is_sdl_init = initSdl();
 
 			if (is_sdl_init == 0) {
+				Caster raycast;
 				window = SDL_CreateWindow("TEST", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_RESIZABLE);
+				SDL_Surface* surface = SDL_GetWindowSurface(window);
 				SDL_Event window_events;
 				window_events.type = SDL_WINDOWEVENT;
-				SDL_Surface* surface = SDL_GetWindowSurface(window);
+				raycast._surface = surface;
 
 				while (window) {
 
 					SDL_Renderer* render = SDL_CreateRenderer(window, -1, 0);
+
+					raycast.assignRgba();
 
 					if (SDL_PollEvent(&window_events)) {
 						switch (window_events.type) {

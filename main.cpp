@@ -3,7 +3,6 @@
 
 using namespace World;
 using namespace Entity;
-using namespace RenderingTools;
 using namespace Render;
 
 
