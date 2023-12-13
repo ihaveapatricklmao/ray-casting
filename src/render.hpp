@@ -31,20 +31,23 @@ namespace Render {
 			int h = _surface->h;
 
 			Pixel pix;
+
+			SDL_LockSurface(_surface);
 			Uint32* pixels = (Uint32*)_surface->pixels;
 
-			for (int y = 0; y < h; y++)
-			{
-				for (int x = 0; x < w; x++)
-				{
-					Uint8 r, g, b, a;
-					pix.pos = { x, y };
-					SDL_GetRGBA(pixels[x + y * w], _surface->format, &r, &g, &b, &a);
-					pix.rgba = { r, g, b, a };
-					_pixels.emplace_back(pix);
-					std::cout << pix.rgba[0] << " , " << pix.rgba[1] << " , " << pix.rgba[2] << " , " << pix.rgba[3] << "\n";
+			for (int y = 0; y < h; ++y) {
+				for (int x = 0; x < w; x += 4) { // Unrolling by a factor of 4
+					for (int i = 0; i < 4; ++i) {
+						pix.pos = { x + i, y };
+						Uint8 r, g, b, a;
+						SDL_GetRGBA(pixels[x + i, y * w], _surface->format, &r, &g, &b, &a);
+						pix.rgba = { r, g, b, a };
+						_pixels.emplace_back(pix);
+					}
 				}
 			}
+
+			SDL_UnlockSurface(_surface);
 		}
 
 		void scanRow() {
@@ -77,26 +80,29 @@ namespace Render {
 				Caster raycast;
 				window = SDL_CreateWindow("TEST", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_RESIZABLE);
 				SDL_Surface* surface = SDL_GetWindowSurface(window);
+				raycast._surface = surface;
 				SDL_Event window_events;
 				window_events.type = SDL_WINDOWEVENT;
-				raycast._surface = surface;
+
 
 				while (window) {
 
 					SDL_Renderer* render = SDL_CreateRenderer(window, -1, 0);
 
-					raycast.assignRgba();
 
 					if (SDL_PollEvent(&window_events)) {
+
 						switch (window_events.type) {
 							case SDL_WINDOWEVENT_RESIZED:
 								window_events.window.data1;
 								window_events.window.data2;
+								break;
 						}
 					}
-					SDL_RenderClear(render);
-					SDL_RenderPresent(render);
 
+					SDL_RenderClear(render);
+					raycast.assignRgba();
+					SDL_RenderPresent(render);
 
 					SDL_UpdateWindowSurface(window);
 				}
