@@ -34,14 +34,16 @@ namespace Render {
 
 			SDL_LockSurface(_surface);
 			Uint32* pixels = (Uint32*)_surface->pixels;
+			Uint8 r, g, b, a;
 
-			for (int y = 0; y < h; ++y) {
-				for (int x = 0; x < w; x += 4) { // Unrolling by a factor of 4
-					for (int i = 0; i < 4; ++i) {
+			for (int y = 0; y < h; y++) {
+				for (int x = 0; x < w; x += 4) {
+					for (int i = 0; i < 4; i++) {
 						pix.pos = { x + i, y };
-						Uint8 r, g, b, a;
-						SDL_GetRGBA(pixels[x + i, y * w], _surface->format, &r, &g, &b, &a);
+						SDL_GetRGBA(pixels[x + i + y * w], _surface->format, &r, &g, &b, &a);
 						pix.rgba = { r, g, b, a };
+						//pixels[x + i + y * w] = SDL_MapRGBA(_surface->format, 200, 200, 15, 255);
+						//std::cout << pix.rgba[0] << " , " << pix.rgba[1] << " , " << pix.rgba[2] << " , " << pix.rgba[3] << "\n";
 						_pixels.emplace_back(pix);
 					}
 				}
@@ -96,6 +98,10 @@ namespace Render {
 							case SDL_WINDOWEVENT_RESIZED:
 								window_events.window.data1;
 								window_events.window.data2;
+								break;
+							case SDL_QUIT:
+								SDL_DestroyWindow(window);
+								SDL_Quit();
 								break;
 						}
 					}
