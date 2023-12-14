@@ -7,7 +7,10 @@
 
 
 class Camera : public Entity::EntityBase {
-	
+	public:
+		int fov;
+		double angle;
+
 };
 
 #endif // !CAMERA_H

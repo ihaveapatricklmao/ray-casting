@@ -34,9 +34,12 @@ namespace World {
 	class Wall {
 
 		public:
+			int width;
+			int height;
 			Points pt_a, pt_b;
 			enum pts {POINT_A, POINT_B};
 			Textures texture;
+			vec4 rgba;
 
 			float wall_dist;
 
@@ -71,7 +74,7 @@ namespace World {
 								std::cout << "Door Dist: " << door_dist << "\n";
 
 								if (door_dist <= 0.8) {  // threshold
-									std::cout << "distance reached!";
+									std::cout << "distance reached!\n";
 									break;
 								}
 							}
@@ -91,7 +94,7 @@ namespace World {
 								std::cout << "Door Dist: " << door_dist << "\n";
 
 								if (door_dist <= 0.8) {  // threshold
-									std::cout << "distance reached!";
+									std::cout << "distance reached!\n";
 									break;
 								}
 							}
@@ -99,9 +102,13 @@ namespace World {
 				}
 			}
 
-		Wall(Points a, Points b) {
-			pt_a = a;
-			pt_b = b;
+		Wall(int w, int h, Points pt_1, Points pt_2, Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+			width = w;
+			height = h;
+			pt_a = pt_1;
+			pt_b = pt_2;
+			rgba = { r, g, b, a };
+
 			wall_dist = std::sqrt(std::pow(pt_b.point_pos.x - pt_a.point_pos.x, 2) +
 						std::pow(pt_b.point_pos.y - pt_a.point_pos.y, 2));
 		}
@@ -121,11 +128,11 @@ namespace World {
 		void assignWorld(std::vector<Wall> walls, std::vector<EntityBase> entities) {
 
 			for (int x = 0; x < walls.size(); x++) {
-				std::cout << "iterate walls\n";
+				//std::cout << "iterate walls\n";
 				_walls.push_back(walls[x]);
 			}
 			for (int z = 0; z < entities.size(); z++) {
-				std::cout << "iterate entities\n";
+				//std::cout << "iterate entities\n";
 				_entities.push_back(entities[z]);
 			}
 		}

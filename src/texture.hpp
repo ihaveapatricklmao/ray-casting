@@ -1,5 +1,6 @@
 #pragma once
 #define STB_IMAGE_IMPLEMENTATION
+#define STB_NO_HDR
 #ifndef TEXTURE_HPP
 #define TEXTURE_HPP
 

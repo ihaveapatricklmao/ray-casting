@@ -9,7 +9,7 @@
 
 
 using namespace glm;
-
+using namespace World;
 
 namespace Render {
 
@@ -18,8 +18,25 @@ namespace Render {
 		vec4 rgba;
 	};
 
+	struct Line {
+		Points origin_pt;
+		double vec_dir;
+		Points end_pt;
+		double angle;
+
+		void createLine (vec2 _ori, double _dir, Camera _cam) {
+			origin_pt.point_pos.x = _ori.x;
+			origin_pt.point_pos.y = _ori.y;
+
+			vec_dir = _dir;
+
+			angle = _cam.angle;
+		}
+	};
+
 	struct Caster {
 		std::vector<Pixel> _pixels;
+		std::vector<Line> _lines;
 		SDL_Surface* _surface;
 
 
@@ -51,8 +68,16 @@ namespace Render {
 			SDL_UnlockSurface(_surface);
 		}
 
-		void scanRow() {
+		void scan(Camera _cam) {
 
+			Line* _line = new Line;
+
+			for (int i = 0; i < _cam.fov; i++) {
+				_line->createLine(_cam.pos, i, _cam);
+				_lines.emplace_back(*_line);
+			}
+
+			delete _line;
 		}
 	};
 
@@ -97,9 +122,9 @@ namespace Render {
 							case SDL_WINDOWEVENT_RESIZED:
 								SDL_SetWindowSize(window, window_events->window.data1, window_events->window.data2);
 								SDL_GetWindowSize(window, &window_events->window.data1, &window_events->window.data2);
-								SDL_Log("Window %d resized to %dx%d",
-									window_events->window.windowID, window_events->window.data1,
-									window_events->window.data2);
+
+								//SDL_Log("Window %d resized to %dx%d", window_events->window.windowID, window_events->window.data1, window_events->window.data2);
+
 								//std::cout << (int)raycast._surface->w << "\n";
 								//std::cout << (int)raycast._surface->h << "\n";
 
