@@ -95,11 +95,16 @@ namespace Render {
 
 						switch (window_events->window.event) {
 							case SDL_WINDOWEVENT_RESIZED:
-								SDL_GetWindowSize(window, &window_events->window.data1, &window_events->window.data2);
 								SDL_SetWindowSize(window, window_events->window.data1, window_events->window.data2);
+								SDL_GetWindowSize(window, &window_events->window.data1, &window_events->window.data2);
 								SDL_Log("Window %d resized to %dx%d",
 									window_events->window.windowID, window_events->window.data1,
 									window_events->window.data2);
+								//std::cout << (int)raycast._surface->w << "\n";
+								//std::cout << (int)raycast._surface->h << "\n";
+
+								SDL_FreeSurface(raycast._surface);
+								raycast._surface = SDL_GetWindowSurface(window);
 
 								raycast.assignRgba();
 								break;
