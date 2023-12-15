@@ -9,14 +9,17 @@
 class Camera : public Entity::EntityBase {
 	public:
 		vec2 dir;
+		double view_angle;
 		vec2 plane_pt_a;
 		vec2 plane_pt_b;
 		double plane_dir;
 
 
 		void calculatePlane(double _dir, double _plane) {
+
 			dir.x = this->pos.x + _dir;
 			dir.y = this->pos.y + _dir;
+
 
 			plane_pt_a.x = dir.x - _plane;
 			plane_pt_a.y = dir.y - _plane;

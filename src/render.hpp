@@ -70,17 +70,24 @@ namespace Render {
 			_pixels.clear();
 		}
 
-		void scan(Camera _cam) {
+		void scan(Camera* _cam) {
 
-			_cam.calculatePlane(45.0, 45.0);
+			_cam->calculatePlane(32.0, 32.0);
+
+			std::cout << _cam->plane_dir << "\n";
+
+			std::cout << _cam->dir.x << "\n";
+			std::cout << _cam->dir.y << "\n";
 
 			Line* _line_a = new Line;
 			Line* _line_b = new Line;
 
-			for (int i = 0; i >= _cam.plane_pt_a.x; i--) {
-				for (int z = 0; i <= _cam.plane_pt_b.x; z++) {
-					_line_a->createLine(_cam.pos, { _cam.dir.x - _cam.plane_dir * 1 / i, _cam.dir.y - _cam.plane_dir * 1 / i } , _cam);
-					_line_b->createLine(_cam.pos, { _cam.dir.x + _cam.plane_dir * 1 / z, _cam.dir.y + _cam.plane_dir * 1 / z } , _cam);
+			for (int i = 0; i >= _cam->plane_pt_a.x; i--) {
+				for (int z = 0; i <= _cam->plane_pt_b.x; z++) {
+					_line_a->createLine(_cam->pos, { (_cam->dir.x - _cam->plane_dir * 1 / i) - 0.00001, (_cam->dir.y - _cam->plane_dir * 1 / i) - 0.00001 }, *_cam);
+					_line_b->createLine(_cam->pos, { (_cam->dir.x + _cam->plane_dir * 1 / z) + 0.00001, (_cam->dir.y + _cam->plane_dir * 1 / z) + 0.00001 } , *_cam);
+
+
 
 					_lines.emplace_back(*_line_a);
 					_lines.emplace_back(*_line_b);
@@ -128,6 +135,12 @@ namespace Render {
 				window_events->type = SDL_WINDOWEVENT;
 
 				SDL_Renderer* render = SDL_CreateRenderer(window, -1, 0);
+
+				Camera new_cam{};
+				new_cam.pos = { 20, 2 };
+
+				raycast.scan(&new_cam);
+
 
 				while (window_events->type != SDL_QUIT) {
 
