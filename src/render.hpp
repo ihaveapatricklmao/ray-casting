@@ -20,18 +20,16 @@ namespace Render {
 
 	struct Line {
 		Points origin_pt;
-		double vec_dir;
+		vec2 vec_dir;
 		Points end_pt;
 		double angle;
 
-		void createLine (vec2 _ori, double _dir, Camera _cam) {
-			origin_pt.point_pos.x = _ori.x;
-			origin_pt.point_pos.y = _ori.y;
+		void createLine (vec2 _ori, vec2 _dir, Camera _cam) {
+			origin_pt.point_pos = _ori;
 
 			vec_dir = _dir;
-
-			angle = _cam.angle;
 		}
+
 	};
 
 	struct Caster {
@@ -68,16 +66,33 @@ namespace Render {
 			SDL_UnlockSurface(_surface);
 		}
 
+		void clearPixelBuffer() {
+			_pixels.clear();
+		}
+
 		void scan(Camera _cam) {
 
-			Line* _line = new Line;
+			_cam.calculatePlane(45.0, 45.0);
 
-			for (int i = 0; i < _cam.fov; i++) {
-				_line->createLine(_cam.pos, i, _cam);
-				_lines.emplace_back(*_line);
+			Line* _line_a = new Line;
+			Line* _line_b = new Line;
+
+			for (int i = 0; i >= _cam.plane_pt_a.x; i--) {
+				for (int z = 0; i <= _cam.plane_pt_b.x; z++) {
+					_line_a->createLine(_cam.pos, { _cam.dir.x - _cam.plane_dir * 1 / i, _cam.dir.y - _cam.plane_dir * 1 / i } , _cam);
+					_line_b->createLine(_cam.pos, { _cam.dir.x + _cam.plane_dir * 1 / z, _cam.dir.y + _cam.plane_dir * 1 / z } , _cam);
+
+					_lines.emplace_back(_line_a);
+					_lines.emplace_back(_line_b);
+				}
 			}
 
-			delete _line;
+			delete _line_a;
+			delete _line_b;
+		}
+
+		void clearScanBuffer() {
+			_lines.clear();
 		}
 	};
 
