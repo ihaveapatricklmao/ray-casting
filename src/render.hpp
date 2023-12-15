@@ -82,8 +82,8 @@ namespace Render {
 					_line_a->createLine(_cam.pos, { _cam.dir.x - _cam.plane_dir * 1 / i, _cam.dir.y - _cam.plane_dir * 1 / i } , _cam);
 					_line_b->createLine(_cam.pos, { _cam.dir.x + _cam.plane_dir * 1 / z, _cam.dir.y + _cam.plane_dir * 1 / z } , _cam);
 
-					_lines.emplace_back(_line_a);
-					_lines.emplace_back(_line_b);
+					_lines.emplace_back(*_line_a);
+					_lines.emplace_back(*_line_b);
 				}
 			}
 
